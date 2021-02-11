@@ -8,6 +8,17 @@ class Personne
     private $password;
     private $news_letter;
 
+    public function __toString(){
+        $str = "<pre>";
+        $str .= "\nNom = " . $this->getNom();
+        $str .= "\nPrénom = " . $this->getPrenom();
+        $str .= "\nEmail = " . $this->getEmail();
+        $str .= "\nPassword = " . $this->getPassword();
+        $str .= "\nNews_letter = " . $this->getNewsLetter();
+        $str .= "</pre>";
+        return $str;
+    }
+
     /**
      * @return mixed
      */
