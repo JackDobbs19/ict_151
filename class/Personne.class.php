@@ -9,7 +9,7 @@ class Personne
     private $news_letter;
     private $pdo;
 
-    public function __construct(){
+    public function __construct($id = null){
         $this->pdo = new PDO('mysql:dbname='. BASE_NAME .';
                             host='.SQL_HOST,
                             SQL_USER,
@@ -18,6 +18,30 @@ class Personne
                                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
                             )
         );
+
+        if($id){
+            $this->setId($id);
+            $this->init();
+        }
+    }
+
+    public function init(){
+        $query = "SELECT * FROM t_personnes WHERE id_per=:id_per";
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $args['id_per'] = $this->getId();
+            $stmt->execute($args);
+            $tab = $stmt->fetch();
+
+            $this->setNom($tab['nom_per']);
+            $this->setPrenom($tab['prenom_per']);
+            $this->setEmail($tab['email_per']);
+            $this->setPassword($tab['password_per']);
+            $this->setNewsLetter($tab['news_letter_per']);
+            return true;
+        } catch (Exception $e){
+            return false;
+        }
     }
 
     public function add($tab){
@@ -45,6 +69,40 @@ class Personne
             return false;
         }
 
+    }
+
+    public function checkEmail($email){
+        $query = "SELECT * FROM t_personnes WHERE email_per = :email LIMIT 1";
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $args[':email'] = $email;
+            $stmt->execute($args);
+            $tab = $stmt->fetch();
+            if($tab['email_per'] == $email){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function checkLogin($email, $password){
+        $query = "SELECT id_per,password_per FROM t_personnes WHERE email_per=:email LIMIT 1";
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $args[':email'] = $email;
+            $stmt->execute($args);
+            $tab = $stmt->fetch();
+            if(password_verify($password,$tab['password_per'])){
+                echo "ok";
+            }else{
+                echo "ko";
+            }
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function genPassword($password){
@@ -142,4 +200,19 @@ class Personne
         $this->news_letter = $news_letter;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 }

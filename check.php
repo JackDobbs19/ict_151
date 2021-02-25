@@ -20,13 +20,23 @@ $tab['email_per'] = "didier.raoult@gouv.fr";
 $tab['password'] = "M0t_de_passe";
 $tab['news_letter_per'] = 1;
 
-echo $per->add($tab);
+//echo $per->add($tab);
 
-echo $hash = password_hash($per->getPassword(), PASSWORD_DEFAULT);
+//echo $per->checkEmail("didier.raoult@gouv.fr");
+//
+//echo $per->checkEmail("didier.raoult@gouv.ch");
+//
+//echo $hash = password_hash($per->getPassword(), PASSWORD_DEFAULT);
+//
+//if(password_verify($per->getPassword(),$hash)){
+//    echo "\nPassword valide";
+//}
 
-if(password_verify($per->getPassword(),$hash)){
-    echo "\nPassword valide";
-}
+//$per = new Personne(8);
+//echo $per;
+
+echo $per->checkLogin("didier.raoult@gouv.fr","M0t_de_passe");
+
 
 ?>
 </pre>
