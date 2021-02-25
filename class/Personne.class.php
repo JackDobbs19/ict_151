@@ -20,6 +20,36 @@ class Personne
         );
     }
 
+    public function add($tab){
+
+        $this->genPassword($tab['password']);
+
+        //Tableau d'arguments
+        $args['nom_per'] = $tab['nom_per'];
+        $args['prenom_per'] = $tab['prenom_per'];
+        $args['email_per'] = $tab['email_per'];
+        $args['password_per'] = $this->getPassword();
+        $args['news_letter_per'] = $tab['news_letter_per'];
+
+        $query = "INSERT INTO t_personnes SET "
+                . "nom_per = :nom_per, "
+                . "prenom_per = :prenom_per, "
+                . "password_per = :password_per, "
+                . "email_per = :email_per, "
+                . "news_letter_per = :news_letter_per";
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($args);
+            return $this->pdo->lastInsertId();
+        } catch (Exception $e){
+            return false;
+        }
+
+    }
+
+    public function genPassword($password){
+        $this->setPassword(password_hash($password, PASSWORD_DEFAULT));
+    }
 
     public function __toString(){
         $str = "<pre>";
