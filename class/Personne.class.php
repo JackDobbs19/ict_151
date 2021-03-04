@@ -27,9 +27,12 @@ class Personne
 
     public function init(){
         $query = "SELECT * FROM t_personnes WHERE id_per=:id_per";
+
+        $args = array();
+        $args['id_per'] = $this->getId();
+
         try {
             $stmt = $this->pdo->prepare($query);
-            $args['id_per'] = $this->getId();
             $stmt->execute($args);
             $tab = $stmt->fetch();
 
@@ -75,13 +78,16 @@ class Personne
         $query = "SELECT * FROM t_personnes WHERE email_per = :email LIMIT 1";
         try {
             $stmt = $this->pdo->prepare($query);
+            $args = array();
             $args[':email'] = $email;
             $stmt->execute($args);
             $tab = $stmt->fetch();
-            if($tab['email_per'] == $email){
-                return true;
-            }else{
-                return false;
+            if(isset($tab)) {
+                if ($tab['email_per'] == $email) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } catch (Exception $e) {
             return false;
@@ -89,27 +95,38 @@ class Personne
     }
 
     public function checkLogin($email, $password){
-        $query = "SELECT id_per,password_per FROM t_personnes WHERE email_per=:email LIMIT 1";
+        $query = "SELECT id_per, password_per FROM t_personnes WHERE email_per=:email LIMIT 1";
         try {
             $stmt = $this->pdo->prepare($query);
+            $args = array();
             $args[':email'] = $email;
             $stmt->execute($args);
             $tab = $stmt->fetch();
-            if(password_verify($password,$tab['password_per'])){
+
+            if(password_verify($password, $tab['password_per'])){
                 $_SESSION['id'] = $tab['id_per'];
                 $user_browser_ip = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
                 $_SESSION['login_string'] = password_hash($tab['password_per'].$user_browser_ip, PASSWORD_DEFAULT);
                 $_SESSION['email'] = $email;
-                echo "ok";
             }else{
-                echo "ko";
             }
         } catch (Exception $e) {
             return false;
         }
     }
 
-
+    public function checkConnect(){
+        if(isset($_SESSION['id'], $_SESSION['email'], $_SESSION['login_string'])){
+            $user_browser_ip = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
+            if(password_verify($this->getPassword().$user_browser_ip, $_SESSION['login_string'])){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 
     public function genPassword($password){
         $this->setPassword(password_hash($password, PASSWORD_DEFAULT));

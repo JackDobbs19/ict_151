@@ -4,7 +4,13 @@ session_start();
 require("./config/config.inc.php");
 require("./class/Personne.class.php");
 
-$per = new Personne(4);
+//$tab['nom_per'] = "Raoult";
+//$tab['prenom_per'] = "Didier";
+//$tab['email_per'] = "didier.raoult@gouv.fr";
+//$tab['password_per'] = "M0t_de_passe";
+//$tab['news_letter_per'] = 1;
+
+$per = new Personne(1);
 echo $per;
 
 //echo $per->add($tab);
@@ -22,10 +28,15 @@ echo $per;
 //$per = new Personne(8);
 //echo $per;
 
-echo $per->checkLogin("didier.raoult@gouv.fr","M0t_de_passe");
+echo $per->checkLogin("didier.raoult@gouv.fr", "M0t_de_passe") . "<br>";
 
 print_r($_SESSION);
-
+if($per->checkConnect()){
+    echo "Logué";
+}else{
+    echo "Pas logué";
+}
 
 ?>
+<a href="./controle_login.php">Logué ?</a>
 </pre>
