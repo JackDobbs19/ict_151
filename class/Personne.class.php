@@ -96,6 +96,10 @@ class Personne
             $stmt->execute($args);
             $tab = $stmt->fetch();
             if(password_verify($password,$tab['password_per'])){
+                $_SESSION['id'] = $tab['id_per'];
+                $user_browser_ip = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
+                $_SESSION['login_string'] = password_hash($tab['password_per'].$user_browser_ip, PASSWORD_DEFAULT);
+                $_SESSION['email'] = $email;
                 echo "ok";
             }else{
                 echo "ko";
@@ -104,6 +108,8 @@ class Personne
             return false;
         }
     }
+
+
 
     public function genPassword($password){
         $this->setPassword(password_hash($password, PASSWORD_DEFAULT));

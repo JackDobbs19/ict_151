@@ -1,24 +1,11 @@
 <pre>
 <?php
-
+session_start();
 require("./config/config.inc.php");
 require("./class/Personne.class.php");
 
-$per = new Personne();
-
-$per->setNom("Raoult");
-$per->setPrenom("Didier");
-$per->setEmail("didier.raoult@gouv.fr");
-$per->setPassword("M0t_de_passe");
-$per->setNewsLetter(1);
-
+$per = new Personne(4);
 echo $per;
-
-$tab['nom_per'] = "Raoult";
-$tab['prenom_per'] = "Didier";
-$tab['email_per'] = "didier.raoult@gouv.fr";
-$tab['password'] = "M0t_de_passe";
-$tab['news_letter_per'] = 1;
 
 //echo $per->add($tab);
 
@@ -36,6 +23,8 @@ $tab['news_letter_per'] = 1;
 //echo $per;
 
 echo $per->checkLogin("didier.raoult@gouv.fr","M0t_de_passe");
+
+print_r($_SESSION);
 
 
 ?>
