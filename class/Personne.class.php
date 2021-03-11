@@ -56,7 +56,7 @@ class Personne
         $args['prenom_per'] = $tab['prenom_per'];
         $args['email_per'] = $tab['email_per'];
         $args['password_per'] = $this->getPassword();
-        $args['news_letter_per'] = $tab['news_letter_per'];
+        $args['news_letter_per'] = $tab['news_letter'];
 
         $query = "INSERT INTO t_personnes SET "
                 . "nom_per = :nom_per, "

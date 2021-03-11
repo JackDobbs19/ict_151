@@ -2,7 +2,7 @@
 <?php
 session_start();
 require("./config/config.inc.php");
-require("./class/Personne.class.php");
+require(WAY . "./includes/autoload.inc.php");
 
 //$tab['nom_per'] = "Raoult";
 //$tab['prenom_per'] = "Didier";
@@ -38,5 +38,6 @@ if($per->checkConnect()){
 }
 
 ?>
+<br>
 <a href="./controle_login.php">Logué ?</a>
 </pre>
