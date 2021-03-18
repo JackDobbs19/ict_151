@@ -68,6 +68,8 @@ $(function(){
                 },
                 function result (data, status){
                     $("#alert .message").html(data.message.texte);
+                    $("#alert").removeClass();
+                    $("#alert").addClass("alert");
                     $("#alert").addClass("alert-" + data.message.type);
                     $("#alert").css("display", "block");
                 }
