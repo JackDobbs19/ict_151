@@ -67,7 +67,7 @@ $(function(){
                     news_letter:$("#news_letter").prop("checked") ? 1 : 0
                 },
                 function result (data, status){
-                    $("#alert.message").html(data.message.texte);
+                    $("#alert .message").html(data.message.texte);
                     $("#alert").addClass("alert-" + data.message.type);
                     $("#alert").css("display", "block");
                 }

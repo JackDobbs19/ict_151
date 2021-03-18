@@ -1,3 +1,8 @@
+<?php
+session_start();
+require (WAY . "includes/autoload.inc.php");
+?>
+
 <!doctype html>
 <html lang="fr">
     <head>
@@ -20,7 +25,7 @@
     </head>
     <body>
         <div class="container">
-
+            <!-- Zone de notification-->
             <div class="alert" id="alert">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                 <strong class="bold"></strong><span class="message"></span>

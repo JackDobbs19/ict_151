@@ -6,6 +6,8 @@ require_once (WAY . "/includes/autoload.inc.php");
 
 $per = new Personne();
 
+$tab = array();
+
 if($per->checkEmail($_POST['email_per'])){
     $tab['reponse'] = false;
     $tab['message']['texte'] = "Cet email est déjà utilisé !";
@@ -13,10 +15,10 @@ if($per->checkEmail($_POST['email_per'])){
 }else{
     $id = $per->add($_POST);
     $per->setId($id);
-    if($per->init()){
+    if($per->init()) {
         $tab['reponse'] = true;
-        $tab['message']['texte'] = "Bienvenue, utlisez les identifiants créés pour vous connecter !";
-        $tab['message']['type'] = "succes";
+        $tab['message']['texte'] = "Bienvenue, utilisez les identifiants créés pour vous connecter !";
+        $tab['message']['type'] = "success";
     }
 }
 

@@ -74,6 +74,12 @@ class Personne
 
     }
 
+
+    /**
+     * Renvoie vrai si l'email existe déjà dans la base
+     * @param $email
+     * @return bool
+     */
     public function checkEmail($email){
         $query = "SELECT * FROM t_personnes WHERE email_per = :email LIMIT 1";
         try {

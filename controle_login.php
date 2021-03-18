@@ -2,7 +2,7 @@
 session_start();
 
 require("./config/config.inc.php");
-require("./class/Personne.class.php");
+require("./includes/head.inc.php");
 
 $per = new Personne($_SESSION['id']);
 
