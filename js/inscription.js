@@ -10,6 +10,11 @@ $(function(){
         }
     );
 
+    $("#alert").on("click", ".close",function (){
+            $("#alert").css("display", "none");
+        }
+    );
+
     $("#inscription_form").validate({
         rules:{
             nom_per:{
@@ -68,10 +73,12 @@ $(function(){
                 },
                 function result (data, status){
                     $("#alert .message").html(data.message.texte);
-                    $("#alert").removeClass();
-                    $("#alert").addClass("alert");
-                    $("#alert").addClass("alert-" + data.message.type);
-                    $("#alert").css("display", "block");
+                    $("#alert").removeClass().addClass("alert").addClass("alert-" + data.message.type).css("display", "block");
+
+                    if(data.reponse) {
+                        $("#inscription_form .form-control").val("");
+                        $("#news_letter").prop("checked", false);
+                    }
                 }
             )
         }
