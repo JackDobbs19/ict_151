@@ -38,7 +38,12 @@ $(function (){
                     desc_fnc:$("#desc_fnc").val()
                 },
                 function result (data, status){
+                    $("#alert .message").html(data.message.texte);
+                    $("#alert").removeClass().addClass("alert").addClass("alert-" + data.message.type).css("display", "block");
 
+                    if(data.reponse) {
+                        $("#fonction_form .form-control").val("");
+                    }
                 }
             )
         }

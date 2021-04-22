@@ -1,9 +1,9 @@
 <?php
-class Fonction
+class Autorisation
 {
     private $id;
     private $nom;
-    private $abreviation;
+    private $code;
     private $description;
     private $pdo;
 
@@ -24,19 +24,19 @@ class Fonction
     }
 
     public function init(){
-        $query = "SELECT * FROM t_fonctions WHERE id_fnc=:id_fnc";
+        $query = "SELECT * FROM t_autorisations WHERE id_aut=:id_aut";
 
         $args = array();
-        $args['id_fnc'] = $this->getId();
+        $args['id_aut'] = $this->getId();
 
         try {
             $stmt = $this->pdo->prepare($query);
             $stmt->execute($args);
             $tab = $stmt->fetch();
 
-            $this->setNom($tab['nom_fnc']);
-            $this->setAbreviation($tab['abr_fnc']);
-            $this->setDescription($tab['desc_fnc']);
+            $this->setNom($tab['nom_aut']);
+            $this->setCode($tab['code_aut']);
+            $this->setDescription($tab['desc_aut']);
             return true;
         } catch (Exception $e){
             return false;
@@ -44,19 +44,44 @@ class Fonction
     }
 
     public function add($tab){
-        $args['nom_fnc'] = $tab['nom_fnc'];
-        $args['abr_fnc'] = $tab['abr_fnc'];
-        $args['desc_fnc'] = $tab['desc_fnc'];
+        $args['nom_aut'] = $tab['nom_aut'];
+        $args['code_aut'] = $tab['code_aut'];
+        $args['desc_aut'] = $tab['desc_aut'];
 
-        $query = "INSERT INTO t_fonctions SET "
-            . "nom_fnc = :nom_fnc, "
-            . "abr_fnc = :abr_fnc, "
-            . "desc_fnc = :desc_fnc";
+        $query = "INSERT INTO t_autorisations SET "
+            . "nom_aut = :nom_aut, "
+            . "code_aut = :code_aut, "
+            . "desc_aut = :desc_aut";
 
         try{
             $stmt = $this->pdo->prepare($query);
             $stmt->execute($args);
             return $this->pdo->lastInsertId();
+        }catch (Exception $e){
+            return false;
+        }
+    }
+
+    /**
+     * Renvoie vrai si le code existe déjà dans la base
+     * @param $code
+     * @return bool
+     */
+    public function checkCode($code){
+        $query = "SELECT * FROM t_autorisations WHERE code_aut = :code LIMIT 1";
+        try{
+            $stmt = $this->pdo->prepare($query);
+            $args = array();
+            $args['code'] = $code;
+            $stmt->execute($args);
+            $tab = $stmt->fetch();
+            if(isset($tab)){
+                if($tab['code_aut'] == $code){
+                    return true;
+                } else{
+                    return false;
+                }
+            }
         }catch (Exception $e){
             return false;
         }
@@ -97,17 +122,17 @@ class Fonction
     /**
      * @return mixed
      */
-    public function getAbreviation()
+    public function getCode()
     {
-        return $this->abreviation;
+        return $this->code;
     }
 
     /**
-     * @param mixed $abreviation
+     * @param mixed $code
      */
-    public function setAbreviation($abreviation)
+    public function setCode($code)
     {
-        $this->abreviation = $abreviation;
+        $this->code = $code;
     }
 
     /**
@@ -124,6 +149,22 @@ class Fonction
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdo()
+    {
+        return $this->pdo;
+    }
+
+    /**
+     * @param mixed $pdo
+     */
+    public function setPdo($pdo)
+    {
+        $this->pdo = $pdo;
     }
 }
 ?>
