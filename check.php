@@ -1,8 +1,7 @@
-<pre>
 <?php
 session_start();
 require("./config/config.inc.php");
-require(WAY . "./includes/autoload.inc.php");
+require ("./includes/head.inc.php");
 
 //$tab['nom_per'] = "Raoult";
 //$tab['prenom_per'] = "Didier";
@@ -30,7 +29,6 @@ echo $per;
 
 echo $per->checkLogin("didier.raoult@gouv.fr", "M0t_de_passe") . "<br>";
 
-print_r($_SESSION);
 if($per->checkConnect()){
     echo "Logué";
 }else{
@@ -40,4 +38,3 @@ if($per->checkConnect()){
 ?>
 <br>
 <a href="./controle_login.php">Logué ?</a>
-</pre>
