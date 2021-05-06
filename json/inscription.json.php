@@ -10,14 +10,14 @@ $tab = array();
 
 if($per->checkEmail($_POST['email_per'])){
     $tab['reponse'] = false;
-    $tab['message']['texte'] = "Cet email est déjà utilisé !";
+    $tab['message']['text'] = "Cet email est déjà utilisé !";
     $tab['message']['type'] = "danger";
 }else{
     $id = $per->add($_POST);
     $per->setId($id);
     if($per->init()){
         $tab['reponse'] = true;
-        $tab['message']['texte'] = "Bienvenue, utilisez les identifiants créés pour vous connecter !";
+        $tab['message']['text'] = "Bienvenue, utilisez les identifiants créés pour vous connecter !";
         $tab['message']['type'] = "success";
     }
 }

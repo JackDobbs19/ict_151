@@ -62,6 +62,32 @@ class Fonction
         }
     }
 
+    public function checkUnique($abr, $nom){
+        $query = "SELECT * FROM t_fonctions "
+            . "WHERE nom_fnc = :nom_fnc "
+            . "AND abr_fnc = :abr_fnc";
+
+        $args = array();
+        $args['nom_fnc'] = $nom;
+        $args['abr_fnc'] = $abr;
+
+        try{
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($args);
+            $tab = $stmt->fetch();
+            if(isset($tab)){
+                if($tab['nom_fnc'] == $nom && $tab['abr_fnc'] == $abr){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
+        catch (Exception $e){
+            return false;
+        }
+    }
+
     /**
      * @return mixed
      */

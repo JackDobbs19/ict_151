@@ -17,7 +17,7 @@ $tab_usr['code_aut'] = "USR_" . $tab_usr['code_aut'];
 
 if($aut_adm->checkCode($tab_adm['code_aut']) || $aut_usr->checkCode($tab_usr['code_aut'])){
     $tab['reponse'] = false;
-    $tab['message']['texte'] = "Cette autorisation existe déjà dans la base";
+    $tab['message']['text'] = "Cette autorisation existe déjà dans la base";
     $tab['message']['type'] = "danger";
 }else {
     $id_adm = $aut_adm->add($tab_adm);
@@ -26,7 +26,7 @@ if($aut_adm->checkCode($tab_adm['code_aut']) || $aut_usr->checkCode($tab_usr['co
     $aut_usr->setId($id_usr);
     if ($aut_adm->init() && $aut_usr->init()) {
         $tab['reponse'] = true;
-        $tab['message']['texte'] = "Les autorisations " . $aut_adm->getCode() . " et " . $aut_usr->getCode() . " ont bien été ajoutées";
+        $tab['message']['text'] = "Les autorisations " . $aut_adm->getCode() . " et " . $aut_usr->getCode() . " ont bien été ajoutées";
         $tab['message']['type'] = "success";
     }
 }

@@ -10,11 +10,6 @@ $(function(){
         }
     );
 
-    $("#alert").on("click", ".close",function (){
-            $("#alert").css("display", "none");
-        }
-    );
-
     $("#inscription_form").validate({
         rules:{
             nom_per:{
@@ -71,14 +66,8 @@ $(function(){
                     password:$("#password").val(),
                     news_letter:$("#news_letter").prop("checked") ? 1 : 0
                 },
-                function result (data, status){
-                    $("#alert .message").html(data.message.texte);
-                    $("#alert").removeClass().addClass("alert").addClass("alert-" + data.message.type).css("display", "block");
-
-                    if(data.reponse) {
-                        $("#inscription_form .form-control").val("");
-                        $("#news_letter").prop("checked", false);
-                    }
+                function result (data){
+                    message(data, "inscription_form");
                 }
             )
         }

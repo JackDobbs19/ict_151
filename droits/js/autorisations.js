@@ -49,12 +49,7 @@ $(function (){
                     desc_usr_aut:$("#desc_usr_aut").val()
                 },
                 function result (data, status){
-                    $("#alert .message").html(data.message.texte);
-                    $("#alert").removeClass().addClass("alert").addClass("alert-" + data.message.type).css("display", "block");
-
-                    if(data.reponse) {
-                        $("#autorisation_form .form-control").val("");
-                    }
+                    message(data, "autorisation_form");
                 }
             )
         }

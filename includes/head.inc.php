@@ -22,6 +22,9 @@ require (WAY . "includes/autoload.inc.php");
         <!--Jquery validate-->
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
+        <!--Fonctions JS globales-->
+        <script src="<?= URL ?>js/functions.js"></script>
+
     </head>
     <body>
         <div class="container">

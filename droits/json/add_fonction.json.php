@@ -6,17 +6,20 @@ require_once (WAY . "/includes/autoload.inc.php");
 
 $fnc = new Fonction();
 
-$id = $fnc->add($_POST);
+$tab = array();
+$tab['reponse'] = false;
+$tab['message']['text'] = "Problème d'ajout, contactez votre administrateur";
+$tab['message']['type'] = "danger";
 
-if(!$id){
+if($fnc->checkUnique($_POST['abr_fnc'], $_POST['nom_fnc'])){
     $tab['reponse'] = false;
-    $tab['message']['texte'] = "Echec de l'ajout";
+    $tab['message']['text'] = "Combinaison nom/abréviation existante";
     $tab['message']['type'] = "danger";
 }else {
-    $fnc->setId($id);
+    $fnc->setId($fnc->add($_POST));
     if ($fnc->init()) {
         $tab['reponse'] = true;
-        $tab['message']['texte'] = "La fonction " . $fnc->getNom() . " (" . $fnc->getAbreviation() . ") a bien été ajoutée";
+        $tab['message']['text'] = "La fonction " . $fnc->getNom() . " (" . $fnc->getAbreviation() . ") a bien été ajoutée";
         $tab['message']['type'] = "success";
     }
 }
