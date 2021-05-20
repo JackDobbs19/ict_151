@@ -150,6 +150,25 @@ class Personne
     }
 
     /**
+     * renvoie la totalité des personnes présentes dans la base
+     * @param string $order
+     * @return array|false
+     */
+    public function getAll($order = "nom_per, prenom_per"){
+        $query = "SELECT * FROM t_personnes ORDER BY " . $order;
+        try{
+            $stmt = $this->pdo->prepare($query);
+            if($stmt->execute()){
+                return $stmt->fetchAll();
+            } else{
+                return false;
+            }
+        } catch (exception $e){
+            return false;
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getNom()

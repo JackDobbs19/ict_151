@@ -48,6 +48,7 @@ require (WAY . "includes/autoload.inc.php");
                                     <ul class="dropdown-menu">
                                         <li><a href="<?= URL ?>droits/fonctions.php">Fonctions</a></li>
                                         <li><a href="<?= URL ?>droits/autorisations.php">Autorisations</a></li>
+                                        <li><a href="<?= URL ?>droits/attribution_fnc_per.php">Attribution de fonctions</a></li>
                                     </ul>
                                 </li>
                             </ul>

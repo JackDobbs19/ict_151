@@ -89,6 +89,48 @@ class Fonction
     }
 
     /**
+     * Renvoie un tableau à 2 dimensions ligne = id_fnc et cols = id_per(s)
+     * @return array|false
+     */
+    public function getTabPerAllFnc(){
+        $query = "SELECT * FROM t_fnc_per ORDER BY id_fnc";
+        try{
+            $stmt = $this->pdo->prepare($query);
+            if($stmt->execute()){
+                $tab = $stmt->fetchAll();
+                $tab_fnc_per = array();
+                foreach ($tab as $row){
+                    $tab_fnc_per[$row['id_fnc']][$row['id_per']] = true;
+                }
+                return $tab_fnc_per;
+            } else{
+                return false;
+            }
+        } catch (exception $e){
+            return false;
+        }
+    }
+
+    /**
+     * renvoie la totalité des fonctions présentes dans la base
+     * @param string $order
+     * @return array|false
+     */
+    public function getAll($order = "nom_fnc"){
+        $query = "SELECT * FROM t_fonctions ORDER BY " . $order;
+        try{
+            $stmt = $this->pdo->prepare($query);
+            if($stmt->execute()){
+                return $stmt->fetchAll();
+            } else{
+                return false;
+            }
+        } catch (exception $e){
+            return false;
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
