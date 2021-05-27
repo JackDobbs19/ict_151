@@ -12,6 +12,8 @@ require ("./includes/head.inc.php");
 $per = new Personne(1);
 echo $per;
 
+$per->addFnc(1);
+
 //echo $per->add($tab);
 
 //echo $per->checkEmail("didier.raoult@gouv.fr");
@@ -26,7 +28,7 @@ echo $per;
 
 //$per = new Personne(8);
 //echo $per;
-
+/*
 echo $per->checkLogin("didier.raoult@gouv.fr", "M0t_de_passe") . "<br>";
 
 if($per->checkConnect()){
@@ -34,7 +36,7 @@ if($per->checkConnect()){
 }else{
     echo "Pas logué";
 }
-
+*/
 ?>
 <br>
-<a href="./controle_login.php">Logué ?</a>
+<!--<a href="./controle_login.php">Logué ?</a>-->

@@ -138,6 +138,32 @@ class Personne
         $this->setPassword(password_hash($password, PASSWORD_DEFAULT));
     }
 
+    public function addFnc($id_fnc){
+        $query = "INSERT INTO t_fnc_per (id_fnc, id_per) VALUES (:id_fnc, :id_per)";
+        try{
+            $stmt = $this->pdo->prepare($query);
+            $args = array();
+            $args[':id_fnc'] = $id_fnc;
+            $args[':id_per'] = $this->getId();
+            $stmt->execute($args);
+        }catch (Exception $e){
+            return false;
+        }
+    }
+
+    public function delFnc($id_fnc){
+        $query = "DELETE FROM `t_fnc_per` WHERE `t_fnc_per`.`id_fnc` = :id_fnc AND `t_fnc_per`.`id_per` = :id_per";
+        try{
+            $stmt = $this->pdo->prepare($query);
+            $args = array();
+            $args[':id_fnc'] = $id_fnc;
+            $args[':id_per'] = $this->getId();
+            $stmt->execute($args);
+        }catch (Exception $e){
+            return false;
+        }
+    }
+
     public function __toString(){
         $str = "<pre>";
         $str .= "\nNom = " . $this->getNom();
