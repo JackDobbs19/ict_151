@@ -145,20 +145,20 @@ class Personne
             $args = array();
             $args[':id_fnc'] = $id_fnc;
             $args[':id_per'] = $this->getId();
-            $stmt->execute($args);
+            return $stmt->execute($args);
         }catch (Exception $e){
             return false;
         }
     }
 
     public function delFnc($id_fnc){
-        $query = "DELETE FROM `t_fnc_per` WHERE `t_fnc_per`.`id_fnc` = :id_fnc AND `t_fnc_per`.`id_per` = :id_per";
+        $query = "DELETE FROM t_fnc_per WHERE t_fnc_per.id_fnc = :id_fnc AND t_fnc_per.id_per = :id_per";
         try{
             $stmt = $this->pdo->prepare($query);
             $args = array();
             $args[':id_fnc'] = $id_fnc;
             $args[':id_per'] = $this->getId();
-            $stmt->execute($args);
+            return $stmt->execute($args);
         }catch (Exception $e){
             return false;
         }

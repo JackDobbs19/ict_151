@@ -1,10 +1,5 @@
 $(function (){
     $(".auth").change(function (){
-        var status = false
-        if($(this).is(":checked")){
-
-            status = true
-        }
         //console.log("click Personne : " + $(this).attr("id_per") + " Fonction : " + $(this).attr("id_fnc"));
 
         $.post(
@@ -12,7 +7,10 @@ $(function (){
             {
                 id_fnc : $(this).attr("id_fnc"),
                 id_per : $(this).attr("id_per"),
-                status : status
+                status : $(this).is(":checked")
+            },
+            function (data, status){
+                message(data, "");
             }
         )
     });
